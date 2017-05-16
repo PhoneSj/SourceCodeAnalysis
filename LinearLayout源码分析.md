@@ -530,3 +530,14 @@ void drawDividersVertical(Canvas canvas) {
 ```
 
 * 根据布局方向绘制分割线
+
+
+**总结**-这里只说竖直方向
+* LinearLayout测量模式为Excetily时
+* - height=0,weight>0的子控件只会测量一次，且是在第二次时测量
+* - height!=0,weight>0的子控件会测量两次
+* - weight=0的子控件只会测量一次，且是在第一次时测量
+* LinearLayout测量模时不为精确模式时
+* - height=0,weight>0的子控件会测量两次（height=0，中途会改成height=wrap_content）
+* - height!=0,wieght>0的子控件会测量两次
+* - weight=0的子控件只会测量一次，且是在第一次是测量

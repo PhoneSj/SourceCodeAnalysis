@@ -200,3 +200,8 @@ FrameLayout中设置为match_parent的可见子控件会测量两次，而其他
 ```
 
 * 根据系统的布局方向layoutDirection、水平对齐absoluteGravity、竖直对齐verticalGravity来计算子控件的左边界childLeft和上边界childTop的值。最后得出右边界、下边界，确定子控件的位置。
+* 
+
+**总结**
+* 若FrameLayout测量模式为精确模式，那么所有的子控件只会测量一次
+* 若FrameLayout测量模式为至多模式，那么设置为match_parent的子控件会测量两次

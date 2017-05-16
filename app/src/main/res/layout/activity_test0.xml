@@ -1,0 +1,31 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/first"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@android:color/holo_orange_dark"/>
+
+    <TextView
+        android:id="@+id/second"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_toRightOf="@id/first"
+        android:background="@android:color/holo_blue_dark"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/third"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/holo_green_dark"/>
+</RelativeLayout>
+
+    <!--android:layout_toRightOf="@id/second"-->
+    <!--android:layout_alignLeft="@id/second"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_centerHorizontal="true"-->
