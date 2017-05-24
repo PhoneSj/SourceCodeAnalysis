@@ -2,7 +2,7 @@
 
 ### onMeasure()测量方法
 
-```
+<pre><code>
 @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     	//子控件在父控件排布的方向，默认水平方向
@@ -12,8 +12,7 @@
             measureHorizontal(widthMeasureSpec, heightMeasureSpec);
         }
     }
-
-```
+</code></pre>
 
 * 该方法中根据当前LinearLayout的方向决定布局方向，根据布局方向决定测量
 * - measureVertical()竖直测量
@@ -22,7 +21,7 @@
 
 因两个方法计算都一样，下面只分析竖直方向的测量
 
-```
+<pre><code>
 void measureVertical(int widthMeasureSpec, int heightMeasureSpec) {
     	//已经使用的高度总和
         mTotalLength = 0;
@@ -339,8 +338,7 @@ void measureVertical(int widthMeasureSpec, int heightMeasureSpec) {
             forceUniformWidth(count, heightMeasureSpec);
         }
     }
-
-```
+</code></pre>
 
 **mTotalLength**--已经使用（后者分配）了的高度
 **totalWeight**--子控件权重值总和
@@ -383,7 +381,7 @@ void measureVertical(int widthMeasureSpec, int heightMeasureSpec) {
 
 ### onLayout()布局方法
 
-```
+<pre><code>
 void layoutVertical(int left, int top, int right, int bottom) {
         final int paddingLeft = mPaddingLeft;
 		//子控件可以放置的左、顶边界(不能小于这两个值)
@@ -471,7 +469,7 @@ void layoutVertical(int left, int top, int right, int bottom) {
         }
     }
 
-```
+</code></pre>
 
 在onLayout()方法中，只需确定子控件的左边界childLeft、上边界childTop两个值即可确定该子控件的位置。
 * 首先根据在竖直方向上的对齐方式，确定第一个子控件的上边界childTop的值
@@ -483,7 +481,7 @@ void layoutVertical(int left, int top, int right, int bottom) {
 
 ##### onDraw()绘制方法
 
-```
+<pre><code>
 protected void onDraw(Canvas canvas) {
     	//LinearLayout是个容器，自身的内容只有分割线
         if (mDivider == null) {
@@ -496,10 +494,10 @@ protected void onDraw(Canvas canvas) {
             drawDividersHorizontal(canvas);
         }
     }
-```
+</code></pre>
 
 
-```
+<pre><code>
 void drawDividersVertical(Canvas canvas) {
         final int count = getVirtualChildCount();
 		//绘制子控件上面的分割线
@@ -527,7 +525,7 @@ void drawDividersVertical(Canvas canvas) {
             drawHorizontalDivider(canvas, bottom);
         }
     }
-```
+</code></pre>
 
 * 根据布局方向绘制分割线
 

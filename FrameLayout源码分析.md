@@ -2,7 +2,7 @@
 ---
 #### onMeasure()测量方法
 
-```
+<pre><code>
 @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     	//获得子视图的数量
@@ -104,7 +104,8 @@
             }
         }
     }
-```
+</code></pre>
+
 * 在第一个for循环中：
 * - 依次测量所有的占据空间子控件；
 * - 比较这些子控件的宽高，得出最大值maxWidth、maxHeight，这两个值为FrameLayout实现对子控件布局所需的宽高；
@@ -126,7 +127,7 @@ FrameLayout中设置为match_parent的可见子控件会测量两次，而其他
 
 ### onLayout()布局方法
 
-```
+<pre><code>
 @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         layoutChildren(left, top, right, bottom, false /* no force left gravity */);
@@ -197,7 +198,7 @@ FrameLayout中设置为match_parent的可见子控件会测量两次，而其他
             }
         }
     }
-```
+</code></pre>
 
 * 根据系统的布局方向layoutDirection、水平对齐absoluteGravity、竖直对齐verticalGravity来计算子控件的左边界childLeft和上边界childTop的值。最后得出右边界、下边界，确定子控件的位置。
 * 

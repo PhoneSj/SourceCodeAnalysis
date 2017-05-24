@@ -17,18 +17,16 @@
 
 ### 第一部分**
 
-
-```
+<pre><code>
         //层次结构是否发生改变
         if (mDirtyHierarchy) {
             mDirtyHierarchy = false;
             sortChildren();//层次结构已改变，需要重新对子控件排序
         }
-```
+</code></pre>
 在该代码中，mDirtyHierarchy表示子控件的依赖层次结构是否变化了。若为true表示变化了，则需要对子控件的依赖层次结构重新排序。即这里调用了sortChildren()方法来实现排序。下面是该方法的代码：
 
-
-```
+<pre><code>
 private void sortChildren() {
         final int count = getChildCount();
         if (mSortedVerticalChildren == null || mSortedVerticalChildren.length != count) {
@@ -50,7 +48,7 @@ private void sortChildren() {
 		//子控件按竖直方向排序
         graph.getSortedViews(mSortedHorizontalChildren, RULES_HORIZONTAL);
     }
-```
+</code></pre>
 sortChildren()方法中，做了如下操作：
 * 清空依赖关系图（依赖关系已经发生改变）
 * 将所有子控件构成的Node加入到依赖关系图mGraph中
@@ -59,8 +57,7 @@ sortChildren()方法中，做了如下操作：
 
 这里调用了DependencyGraph类的方法对Node排序，代码如下：
 
-
-```
+<pre><code>
 //将图转化为队列
         void getSortedViews(View[] sorted, int... rules) {
         	//找到不依赖别的控件的控件集合，作为根节点
@@ -98,8 +95,7 @@ sortChildren()方法中，做了如下操作：
                         + " in RelativeLayout");
             }
         }
-
-```
+</code></pre>
 
 在getSortedViews()方法中做了如下操作：
 * 找到根节点（集合），根节点的定义：不依赖其他子节点的节点
@@ -129,7 +125,7 @@ sortChildren()方法中，做了如下操作：
 
 在getSortedViews开头调用了findRoots()方法查找根节点，下面是findRoots()的代码：
 
-```
+<pre><code>
 //找到依赖关系的根节点
         private ArrayDeque<Node> findRoots(int[] rulesFilter) {
             final SparseArray<Node> keyNodes = mKeyNodes;
@@ -193,7 +189,7 @@ sortChildren()方法中，做了如下操作：
 
             return roots;
         }
-```
+</code></pre>
 
 该方法有一个参数rulesFilter，是一个int数组，用来过滤依赖关系的。在这里有必要介绍一下RelativeLayout.LayoutParams这个内部类。
 
@@ -214,7 +210,7 @@ sortChildren()方法中，做了如下操作：
 ### 第二部分
 与第二部分中间略去了部分代码
 
-```
+<pre><code>
         //遍历子控件的水平关系
         View[] views = mSortedHorizontalChildren;
         int count = views.length;
@@ -235,7 +231,7 @@ sortChildren()方法中，做了如下操作：
                 }
             }
         }
-```
+</code></pre>
 这部分代码功能：对子控件进水平方向的测量
 此时mSortedHorizontalChildren集合中的子控件已经经过排序，后面的子控件依赖前面的自控家，前面的子控件不依赖后面的子控件。
 * 获得子控件的水平依赖关系
@@ -247,7 +243,7 @@ sortChildren()方法中，做了如下操作：
 
 ##### applyHorizontalSizeRules(...)
 
-```
+<pre><code>
 //通过依赖关系计算出控件在水平方向上的大小位置
     private void applyHorizontalSizeRules(LayoutParams childParams, int myWidth, int[] rules) {
         RelativeLayout.LayoutParams anchorParams;
@@ -312,7 +308,8 @@ sortChildren()方法中，做了如下操作：
             }
         }
     }
-```
+</code></pre>
+
 功能：根据该子控件的LEFT_OF/RIGHT_OF/ALIGN_LEFT/ALIGN_RIGHT/ALIGN_PARENT_LEFT/ALIGN_PARENT_RIGHT确定子控件的水平边界（childLeft、childRight）
 
 **注意：以上几种关系的优先级**
@@ -323,8 +320,7 @@ sortChildren()方法中，做了如下操作：
 
 其中调用了getRelatedView(...)方法，其中又会调用getRelatedView(...)方法
 
-
-```
+<pre><code>
     //获取通过指定依赖关系的依赖控件的布局参数
     private LayoutParams getRelatedViewParams(int[] rules, int relation) {
         View v = getRelatedView(rules, relation);
@@ -361,7 +357,7 @@ sortChildren()方法中，做了如下操作：
 
         return null;
     }
-```
+</code></pre>
 
 在getRelatedView()方法中，有一个依赖链的问题。
 
@@ -371,7 +367,7 @@ sortChildren()方法中，做了如下操作：
 
 ##### measureChildHorizontal(...)
 
-```
+<pre><code>
     private void measureChildHorizontal(
             View child, LayoutParams params, int myWidth, int myHeight) {
             //根据前面计算的子控件的左边界mLeft、右边界mRight，得出子控件的WidthMeasureSpec
@@ -414,7 +410,7 @@ sortChildren()方法中，做了如下操作：
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
 
-```
+</code></pre>
 
 功能：根据子控件的水平边界，确定测量WidthMeasureSpec并测量子控件
 
@@ -422,8 +418,7 @@ sortChildren()方法中，做了如下操作：
 
 ##### positionChildHorizontal(...)
 
-
-```
+<pre><code>
 private boolean positionChildHorizontal(View child, LayoutParams params, int myWidth,
             boolean wrapContent) {
 		//获取RelativeLayout的布局方向，左到右LTR、右到左RTL
@@ -467,7 +462,7 @@ private boolean positionChildHorizontal(View child, LayoutParams params, int myW
         }
         return rules[ALIGN_PARENT_END] != 0;
     }
-```
+</code></pre>
 
 功能：对没有设置依赖关系的子控件、相对RelativeLayout的子控件计算水平边界值
 **注：**四条边界的默认值是VALUE_NOT_SET
@@ -475,8 +470,7 @@ private boolean positionChildHorizontal(View child, LayoutParams params, int myW
 
 ### 第三部分
 
-
-```
+<pre><code>
 //遍历子控件的竖直关系
         views = mSortedVerticalChildren;
         count = views.length;
@@ -531,7 +525,7 @@ private boolean positionChildHorizontal(View child, LayoutParams params, int myW
                 }
             }
         }
-```
+</code></pre>
 
 这部分代码功能：对子控件的竖直方向测量。前半部分的代码与水平测量一样，这里不做分析。
 
@@ -543,8 +537,7 @@ private boolean positionChildHorizontal(View child, LayoutParams params, int myW
 
 ### 第三部分
 
-
-```
+<pre><code>
 if (isWrapContentWidth) {
             // Width already has left padding in it since it was calculated by looking at
             // the right of each child view
@@ -611,15 +604,14 @@ if (isWrapContentWidth) {
                 }
             }
         }
-```
+</code></pre>
 
 因RelativeLalyout的宽高是AT_MOST模式，那么它的宽高值刚进行了修正，这时子控件中相对于RelativeLayout居右、居中的子控件需要修正位置。以上两个if就是分别对水平、竖直方向上的边界进行修改。
 
 
 ### 第四部分
 
-
-```
+<pre><code>
 //根据对齐方式Gravity再一次修正子控件位置；这里的对齐方式为所有子控件作为一个整体(相当于一个子控件)来做对齐处理
         if (horizontalGravity || verticalGravity) {
             final Rect selfBounds = mSelfBounds;
@@ -652,15 +644,14 @@ if (isWrapContentWidth) {
                 }
             }
         }
-```
+</code></pre>
 
 当RelativeLayout中设置了子控件水平或者竖直方向居中时，需要对子控件整体进行位置偏移。
 **注：**在这个for循环中，对每个控件都进行了相同距离的偏移，即相当于将整个子控件集合当做一个子控件进行偏移。
 
 ### 第五部分
 
-
-```
+<pre><code>
 //如果是右到左显示，再做一次修改
         if (isLayoutRtl()) {
             final int offsetWidth = myWidth - width;
@@ -675,15 +666,14 @@ if (isWrapContentWidth) {
         }
 
         setMeasuredDimension(width, height);
-```
+</code></pre>
 
 最后根据系统的布局方向（布局方向有两种：从左往右LTR、从右往左RTL）做一次子控件位置修正。然后调用setMeasuredDimension（width，height）使RelativeLayout的宽高生效。
 
 
 ## onLayout()布局方法
 
-
-```
+<pre><code>
 @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         //  The layout has actually already been performed and the positions
@@ -701,7 +691,7 @@ if (isWrapContentWidth) {
             }
         }
     }
-```
+</code></pre>
 
 因在onMeasure()方法中将每个子控件的四条边界都计算出来了，这里只需要直接调用layout(四条边界)就ok了。
 
