@@ -3,7 +3,7 @@
 
 依赖链网上传递
 
-依赖规则的优先级
+依赖规则的优先级!
 
 ### onMeasure()方法分析
 
@@ -108,7 +108,7 @@ sortChildren()方法中，做了如下操作：
 
 **上面的while循环中的代码，就是一个“图”转成“队列”的过程**，简单过程如下：
 
-![“图”转“队列”](preview/RelativeLayout.png)
+![“图”转“队列”](preview/RelativeLayout_01.png)
 
 **DependencyGraph**
 
@@ -701,7 +701,8 @@ if (isWrapContentWidth) {
 
 **个人总结**
 * RelativeLayout所有子控件都会测量两次（水平测量一次、竖直测量一次）
-* 当RelativeLayout测量模式为AT_MOST时，RelativeLayout在测量完子控件后要进行一次宽高修正，同时位置相对于父控件的子控件（仅限相对于RelativeLayout的右边界、和居中的子控件）的位置也要做修正
+* 当RelativeLayout测量模式为AT_MOST时，RelativeLayout在测量完子控件后要进行一次宽高修正，同时位置相对于父控件的子控件（仅限相对于RelativeLayout的右边界、和居中的子控件）的位
+* 置也要做修正
 * 依赖链：当依赖的控件为gone时，就沿着依赖链往上找，直到找到不为gone的控件或者依赖链完毕。
 *依赖条件的优先级：
 * - <!--android:layout_alignLeft="@id/second"优先级次低-->
